@@ -1,65 +1,57 @@
-import { DottedSeparator } from "@/components/dotted-separator";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { FcGoogle } from "react-icons/fc";
-import { FaGithub } from "react-icons/fa";
-import React from "react";
-import Link from "next/link";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-
-const formSchema = z.object({
-  name: z.string().min(1, { message: "Name is required" }),
-  email: z
-    .string()
-    .min(1, { message: "Email is required" })
-    .email({ message: "Invalid email" }),
-  password: z
-    .string()
-    .min(6, { message: "Password must be at least 6 characters long" })
-    .max(32, { message: "Password must be at most 32 characters long" }),
-});
+import { DottedSeparator } from '@/components/dotted-separator';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { FcGoogle } from 'react-icons/fc';
+import { FaGithub } from 'react-icons/fa';
+import React from 'react';
+import Link from 'next/link';
+import { z } from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { registerSchema } from '../schemas';
+import { useRegister } from '../api/use-register';
+import { LoaderCircleIcon } from 'lucide-react';
+import { toast } from 'sonner';
 
 export function SignUpCard() {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const { mutate, isPending } = useRegister();
+
+  const form = useForm<z.infer<typeof registerSchema>>({
+    resolver: zodResolver(registerSchema),
     defaultValues: {
-      name: "",
-      email: "",
-      password: "",
+      name: '',
+      email: '',
+      password: '',
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  function onSubmit(values: z.infer<typeof registerSchema>) {
+    mutate(
+      { json: values },
+      {
+        onSuccess: data => {
+          form.reset();
+          toast.success(`Welcome ${data.message}`);
+        },
+        onError: error => {
+          toast.error(error.message);
+        },
+      },
+    );
   }
   return (
     <Card className="w-full h-full md:w-[487px] border-none ">
       <CardHeader className="flex flex-col items-center justify-between text-center p-7">
         <CardTitle className="text-2xl">Sign Up</CardTitle>
         <CardDescription>
-          By signing up, you agree to our{" "}
-          <Link href={"/privacy-policy"}>
+          By signing up, you agree to our{' '}
+          <Link href={'/privacy-policy'}>
             <span className="text-blue-700">privacy policy</span>
-          </Link>{" "}
-          and{" "}
-          <Link href={"/terms"}>
+          </Link>{' '}
+          and{' '}
+          <Link href={'/terms'}>
             <span className="text-blue-700">terms and conditions</span>
           </Link>
         </CardDescription>
@@ -103,14 +95,15 @@ export function SignUpCard() {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter your password" {...field} />
+                    <Input type="password" placeholder="Enter your password" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
 
-            <Button className="w-full" type="submit">
+            <Button className="w-full" type="submit" disabled={isPending}>
+              {isPending && <LoaderCircleIcon className="-ms-1 animate-spin" size={16} aria-hidden="true" />}
               Sign Up
             </Button>
           </form>
@@ -120,10 +113,10 @@ export function SignUpCard() {
         <DottedSeparator />
       </div>
       <CardContent className="p-7 flex flex-col gap-y-4 ">
-        <Button variant={"secondary"} className="w-full">
+        <Button variant={'secondary'} className="w-full">
           <FcGoogle className="mr-2 size-5" /> Sign Up with Google
         </Button>
-        <Button variant={"secondary"} className="w-full">
+        <Button variant={'secondary'} className="w-full">
           <FaGithub className="mr-2 size-5" /> Sign Up with GitHub
         </Button>
       </CardContent>
@@ -132,8 +125,8 @@ export function SignUpCard() {
       </div>
       <CardContent className="p-7 flex items-center justify-center ">
         <p>
-          Already have an account?{" "}
-          <Link href={"/sign-in"}>
+          Already have an account?{' '}
+          <Link href={'/sign-in'}>
             <span className="text-blue-700">Sign In</span>
           </Link>
         </p>
