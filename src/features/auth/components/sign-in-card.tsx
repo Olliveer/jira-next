@@ -1,3 +1,5 @@
+'use client';
+
 import { DottedSeparator } from '@/components/dotted-separator';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -13,8 +15,10 @@ import { loginSchema } from '../schemas';
 import { useLogin } from '../api/use-login';
 import { LoaderCircleIcon } from 'lucide-react';
 import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 
 export function SignInCard() {
+  const router = useRouter();
   const { mutate, isPending } = useLogin();
 
   const form = useForm<z.infer<typeof loginSchema>>({
@@ -32,6 +36,7 @@ export function SignInCard() {
         onSuccess: data => {
           form.reset();
           toast.success(`Welcome ${data.message}`);
+          router.push('/');
         },
         onError: error => {
           toast.error(error.message);
@@ -94,10 +99,10 @@ export function SignInCard() {
         <DottedSeparator />
       </div>
       <CardContent className="p-7 flex flex-col gap-y-4 ">
-        <Button variant={'secondary'} className="w-full">
+        <Button disabled={isPending} variant={'secondary'} className="w-full">
           <FcGoogle className="mr-2 size-5" /> Sign In with Google
         </Button>
-        <Button variant={'secondary'} className="w-full">
+        <Button disabled={isPending} variant={'secondary'} className="w-full">
           <FaGithub className="mr-2 size-5" /> Sign In with GitHub
         </Button>
       </CardContent>

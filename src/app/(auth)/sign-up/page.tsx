@@ -1,8 +1,14 @@
-"use client";
+import { SignUpCard } from '@/features/auth/components/sign-up-card.';
+import { getCurrent } from '@/features/auth/actions';
+import { redirect } from 'next/navigation';
 
-import { SignUpCard } from "@/features/auth/components/sign-up-card.";
+async function SignUpPage() {
+  const user = await getCurrent();
 
-function SignUpPage() {
+  if (user) {
+    return redirect('/');
+  }
+
   return <SignUpCard />;
 }
 
