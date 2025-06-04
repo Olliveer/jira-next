@@ -1,5 +1,6 @@
 import { client } from '@/lib/rpc';
 import { useQuery } from '@tanstack/react-query';
+import { toast } from 'sonner';
 
 export const useCurrent = () =>
   useQuery({
@@ -14,6 +15,10 @@ export const useCurrent = () =>
       const { data } = await response.json();
 
       return data;
+    },
+    throwOnError() {
+      toast.error('Failed to fetch current user');
+      return true;
     },
     retry: false,
   });

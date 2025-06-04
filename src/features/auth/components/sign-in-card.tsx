@@ -14,11 +14,8 @@ import Link from 'next/link';
 import { loginSchema } from '../schemas';
 import { useLogin } from '../api/use-login';
 import { LoaderCircleIcon } from 'lucide-react';
-import { toast } from 'sonner';
-import { useRouter } from 'next/navigation';
 
 export function SignInCard() {
-  const router = useRouter();
   const { mutate, isPending } = useLogin();
 
   const form = useForm<z.infer<typeof loginSchema>>({
@@ -30,19 +27,7 @@ export function SignInCard() {
   });
 
   function onSubmit(values: z.infer<typeof loginSchema>) {
-    mutate(
-      { json: values },
-      {
-        onSuccess: data => {
-          form.reset();
-          toast.success(`Welcome ${data.message}`);
-          router.push('/');
-        },
-        onError: error => {
-          toast.error(error.message);
-        },
-      },
-    );
+    mutate({ json: values });
   }
   return (
     <Card className="w-full h-full md:w-[487px] border-none ">

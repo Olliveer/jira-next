@@ -15,7 +15,6 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { registerSchema } from '../schemas';
 import { useRegister } from '../api/use-register';
 import { LoaderCircleIcon } from 'lucide-react';
-import { toast } from 'sonner';
 
 export function SignUpCard() {
   const { mutate, isPending } = useRegister();
@@ -33,12 +32,8 @@ export function SignUpCard() {
     mutate(
       { json: values },
       {
-        onSuccess: data => {
+        onSuccess: () => {
           form.reset();
-          toast.success(`Welcome ${data.message}`);
-        },
-        onError: error => {
-          toast.error(error.message);
         },
       },
     );
