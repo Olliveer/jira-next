@@ -19,7 +19,7 @@ export function UserButton() {
   if (isLoading)
     return (
       <div className="size-10 rounded-full flex items-center justify-center bg-neutral-500 border border-neutral-300">
-        <LoaderCircleIcon className="size-4 animate-spin text-muted-foreground" />
+        <LoaderCircleIcon className="size-4 animate-spin " />
       </div>
     );
 

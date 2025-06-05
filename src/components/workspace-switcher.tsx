@@ -4,9 +4,24 @@ import { useGetWorkspaces } from '@/features/workspaces/api/use-get-workspaces';
 import { RiAddCircleFill } from 'react-icons/ri';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { WorkspaceAvatar } from '@/features/workspaces/components/workspace-avatar';
+import { LoaderCircleIcon } from 'lucide-react';
 
 export function WorkspaceSwitcher() {
-  const { data } = useGetWorkspaces();
+  const { data, isLoading } = useGetWorkspaces();
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col gap-y-2">
+        <div className="flex items-center justify-between">
+          <p className="text-xs uppercase text-neutral-500">Workspaces</p>
+          <RiAddCircleFill className="size-5 text-neutral-500 cursor-pointer hover:opacity-75 transition" />
+        </div>
+        <div className="flex items-center justify-center">
+          <LoaderCircleIcon className="size-4 animate-spin" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col gap-y-2">
