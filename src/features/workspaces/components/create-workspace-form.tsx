@@ -14,12 +14,14 @@ import { Separator } from '@/components/ui/separator';
 import { useRef } from 'react';
 import Image from 'next/image';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { useRouter } from 'next/navigation';
 
 interface CreateWorkspaceFormProps {
   onCancel?: () => void;
 }
 
 export function CreateWorkspaceForm({ onCancel }: CreateWorkspaceFormProps) {
+  const router = useRouter();
   const form = useForm<z.infer<typeof createWorkspaceSchema>>({
     resolver: zodResolver(createWorkspaceSchema),
     defaultValues: {
@@ -42,9 +44,9 @@ export function CreateWorkspaceForm({ onCancel }: CreateWorkspaceFormProps) {
         form: finalValues,
       },
       {
-        onSuccess: () => {
+        onSuccess: ({ data }) => {
           form.reset();
-          onCancel?.();
+          router.push(`/workspaces/${data.$id}`);
         },
       },
     );
@@ -130,7 +132,7 @@ export function CreateWorkspaceForm({ onCancel }: CreateWorkspaceFormProps) {
               )}
             />
             <div className="flex justify-end gap-2">
-              <Button variant="outline" onClick={onCancel} disabled={isPending}>
+              <Button type="button" variant="outline" onClick={onCancel} disabled={isPending}>
                 Cancel
               </Button>
               <Button type="submit" disabled={isPending}>
