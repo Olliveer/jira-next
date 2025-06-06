@@ -21,6 +21,7 @@ export const useLogout = () => {
       return await response.json();
     },
     onSuccess: () => {
+      router.push('/sign-in');
       queryClient.invalidateQueries({
         queryKey: ['current'],
       });
@@ -28,6 +29,7 @@ export const useLogout = () => {
         queryKey: ['workspaces'],
       });
       router.refresh();
+
       toast.success('Logout successful');
     },
     onError: () => {

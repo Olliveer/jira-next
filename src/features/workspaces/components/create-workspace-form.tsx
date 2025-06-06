@@ -15,6 +15,7 @@ import { useRef } from 'react';
 import Image from 'next/image';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { useRouter } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
 interface CreateWorkspaceFormProps {
   onCancel?: () => void;
@@ -60,7 +61,7 @@ export function CreateWorkspaceForm({ onCancel }: CreateWorkspaceFormProps) {
   }
 
   return (
-    <Card className="w-full h-full border-none shadow-none">
+    <Card className="w-full h-full border-none shadow-none gap-2">
       <CardHeader className="flex p-7">
         <CardTitle className="text-xl font-bold">Create Workspace</CardTitle>
       </CardHeader>
@@ -132,7 +133,13 @@ export function CreateWorkspaceForm({ onCancel }: CreateWorkspaceFormProps) {
               )}
             />
             <div className="flex justify-end gap-2">
-              <Button type="button" variant="outline" onClick={onCancel} disabled={isPending}>
+              <Button
+                className={cn(!onCancel && 'invisible')}
+                type="button"
+                variant="outline"
+                onClick={onCancel}
+                disabled={isPending}
+              >
                 Cancel
               </Button>
               <Button type="submit" disabled={isPending}>
