@@ -1,8 +1,16 @@
 import { Navbar } from '@/components/navbar';
 import { Sidebar } from '@/components/sidebar';
 import { CreateWorkspaceModal } from '@/features/workspaces/components/create-workspace-modal';
+import { getCurrent } from '@/features/auth/queries';
+import { redirect } from 'next/navigation';
 
-function DashboardLayout({ children }: { children: React.ReactNode }) {
+async function DashboardLayout({ children }: { children: React.ReactNode }) {
+  const user = await getCurrent();
+
+  if (!user) {
+    return redirect('/sign-in');
+  }
+
   return (
     <div className="min-h-screen">
       <CreateWorkspaceModal />
