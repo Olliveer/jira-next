@@ -15,6 +15,11 @@ export const useLogin = () => {
   return useMutation<ResponseType, Error, RequestType>({
     mutationFn: async ({ json }) => {
       const response = await client.api.auth.login.$post({ json });
+
+      if (!response.ok) {
+        throw new Error('Failed to login');
+      }
+
       return await response.json();
     },
     onSuccess: () => {
@@ -24,7 +29,8 @@ export const useLogin = () => {
       router.refresh();
       toast.success('Login successful');
     },
-    onError: () => {
+    onError: error => {
+      console.info('[useLogin]', error);
       toast.error('Failed to login');
     },
   });

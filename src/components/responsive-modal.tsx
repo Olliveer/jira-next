@@ -1,6 +1,6 @@
 import { useMedia } from 'react-use';
 import { Dialog, DialogContent, DialogTitle } from './ui/dialog';
-import { Drawer, DrawerContent } from './ui/drawer';
+import { Drawer, DrawerContent, DrawerTitle } from './ui/drawer';
 
 interface ResponsiveModalProps {
   isOpen: boolean;
@@ -24,6 +24,7 @@ export function ResponsiveModal({ isOpen, onOpenChange, children }: ResponsiveMo
 
   return (
     <Drawer open={isOpen} onOpenChange={onOpenChange}>
+      <DrawerTitle className="sr-only">Create Workspace</DrawerTitle>
       <DrawerContent>
         <div className="overflow-y-auto hide-scrollbar max-h-[85vh] ">{children}</div>
       </DrawerContent>
