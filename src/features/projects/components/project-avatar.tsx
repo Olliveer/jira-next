@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 interface WorkspaceAvatarProps {
   name: string;
-  image: string;
+  image?: string;
   className?: string;
   fallbackClassName?: string;
 }
