@@ -61,20 +61,12 @@ export function EditWorkspaceForm({ onCancel, initialValues }: EditWorkspaceForm
       image: values.image instanceof File ? values.image : '',
     };
 
-    mutate(
-      {
-        form: finalValues,
-        param: {
-          workspaceId: initialValues.$id,
-        },
+    mutate({
+      form: finalValues,
+      param: {
+        workspaceId: initialValues.$id,
       },
-      {
-        onSuccess: ({ data }) => {
-          form.reset();
-          router.push(`/workspaces/${data.$id}`);
-        },
-      },
-    );
+    });
   }
 
   function handleImageChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -115,14 +107,7 @@ export function EditWorkspaceForm({ onCancel, initialValues }: EditWorkspaceForm
       return;
     }
 
-    resetInviteCode(
-      { param: { workspaceId: initialValues.$id } },
-      {
-        onSuccess: () => {
-          router.refresh();
-        },
-      },
-    );
+    resetInviteCode({ param: { workspaceId: initialValues.$id } });
   }
 
   return (
