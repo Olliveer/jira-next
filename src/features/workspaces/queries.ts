@@ -55,7 +55,7 @@ export const getWorkspace = async ({ workspaceId }: GetWorkspaceProps) => {
     const member = await getMember({ databases, workspaceId, userId: user.$id });
 
     if (!member) {
-      return null;
+      throw new Error('Member not found');
     }
 
     const workspace = await databases.getDocument<Workspace>(DATABASE_ID, WORKSPACES_ID, workspaceId);
@@ -63,7 +63,7 @@ export const getWorkspace = async ({ workspaceId }: GetWorkspaceProps) => {
     return workspace;
   } catch (error) {
     console.info('[getCurrent]', error);
-    return null;
+    throw error;
   }
 };
 

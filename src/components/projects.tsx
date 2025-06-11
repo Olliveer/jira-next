@@ -16,6 +16,7 @@ export function Projects() {
   const { open } = useCreateProjectModal();
   const pathname = usePathname();
   const workspaceId = useWorkspaceId();
+
   const { data, isLoading } = useGetProjects({ workspaceId });
 
   if (isLoading) {

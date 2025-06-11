@@ -19,10 +19,6 @@ async function WorkspaceSettingsPage({ params }: WorkspaceSettingsPageProps) {
 
   const initialValues = await getWorkspace({ workspaceId });
 
-  if (!initialValues) {
-    return redirect(`/workspaces/${workspaceId}`);
-  }
-
   return (
     <div className="w-full lg:max-w-xl">
       <EditWorkspaceForm initialValues={initialValues} />
