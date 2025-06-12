@@ -6,6 +6,7 @@ import { getCurrent } from '@/features/auth/queries';
 import { ProjectAvatar } from '@/features/projects/components/project-avatar';
 import { getProject } from '@/features/projects/queries';
 import { PencilIcon } from 'lucide-react';
+import { TaskViewSwitcher } from '@/features/tasks/components/task-view-switcher';
 
 export default async function ProjectPage({ params }: { params: { projectId: string } }) {
   const user = await getCurrent();
@@ -38,6 +39,8 @@ export default async function ProjectPage({ params }: { params: { projectId: str
           </Button>
         </div>
       </div>
+
+      <TaskViewSwitcher taskId={initialValues.$id} />
     </div>
   );
 }
