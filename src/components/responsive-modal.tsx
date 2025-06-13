@@ -14,7 +14,7 @@ export function ResponsiveModal({ isOpen, onOpenChange, children }: ResponsiveMo
   if (isDesktop) {
     return (
       <Dialog open={isOpen} onOpenChange={onOpenChange}>
-        <DialogContent className="w-full sm:max-w-lg p-0 border-none overflow-y-auto hide-scrollbar max-h-[85vh] ">
+        <DialogContent className="w-full sm:max-w-lg p-0 border-none overflow-y-auto hide-scrollbar max-h-[calc(100vh-4rem)] ">
           <DialogTitle className="sr-only">Create Workspace</DialogTitle>
           {children}
         </DialogContent>

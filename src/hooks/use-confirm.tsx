@@ -1,3 +1,5 @@
+'use client';
+
 import { ResponsiveModal } from '@/components/responsive-modal';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
