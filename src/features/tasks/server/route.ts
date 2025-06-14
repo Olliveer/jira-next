@@ -68,7 +68,7 @@ const app = new Hono()
         assigneeId: z.string().nullish(),
         status: z.nativeEnum(TaskStatus).nullish(),
         search: z.string().nullish(),
-        dueDate: z.date().nullish(),
+        dueDate: z.string().nullish(),
       }),
     ),
     async c => {
@@ -96,28 +96,23 @@ const app = new Hono()
       const query = [Query.equal('workspaceId', workspaceId), Query.orderDesc('$createdAt')];
 
       if (projectId) {
-        console.log('projectId', projectId);
         query.push(Query.equal('projectId', projectId));
       }
 
       if (assigneeId) {
-        console.log('assigneeId', assigneeId);
         query.push(Query.equal('assigneeId', assigneeId));
       }
 
       if (status) {
-        console.log('status', status);
         query.push(Query.equal('status', status));
       }
 
       if (search) {
-        console.log('search', search);
         query.push(Query.search('name', search));
       }
 
       if (dueDate) {
-        console.log('dueDate', dueDate);
-        query.push(Query.equal('dueDate', dueDate.toISOString()));
+        query.push(Query.equal('dueDate', dueDate));
       }
 
       const tasks = await databases.listDocuments(DATABASE_ID, TASKS_ID, query);

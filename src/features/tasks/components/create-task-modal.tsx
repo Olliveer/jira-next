@@ -11,8 +11,6 @@ export function CreateTaskModal() {
   return (
     <ResponsiveModal isOpen={isOpen} onOpenChange={setIsOpen}>
       <CreateTaskFormWrapper onCancel={close} />
-      {/* <ScrollArea className="h-[714px] w-full rounded-md border">
-      </ScrollArea> */}
     </ResponsiveModal>
   );
 }

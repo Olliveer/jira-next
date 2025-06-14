@@ -40,7 +40,7 @@ export default async function ProjectPage({ params }: { params: { projectId: str
         </div>
       </div>
 
-      <TaskViewSwitcher taskId={initialValues.$id} />
+      <TaskViewSwitcher />
     </div>
   );
 }

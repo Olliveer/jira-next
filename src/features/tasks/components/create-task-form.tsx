@@ -10,7 +10,6 @@ import { Input } from '@/components/ui/input';
 import { Loader2Icon } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { useWorkspaceId } from '@/features/workspaces/hooks/use-workspace-id';
 import { createTaskSchema } from '../schemas';
@@ -30,7 +29,6 @@ interface CreateTaskFormProps {
 
 export function CreateTaskForm({ onCancel, projectOptions, memberOptions }: CreateTaskFormProps) {
   const workspaceId = useWorkspaceId();
-  const router = useRouter();
   const { mutate, isPending } = useCreateTask();
 
   const form = useForm<z.infer<typeof createTaskSchema>>({
@@ -51,9 +49,10 @@ export function CreateTaskForm({ onCancel, projectOptions, memberOptions }: Crea
         },
       },
       {
-        onSuccess: ({ data }) => {
+        onSuccess: () => {
           form.reset();
           // TODO: GO TO THE NEW TASK
+          onCancel?.();
           // router.push(`/workspaces/${workspaceId}/projects/${data.$id}`);
         },
       },
