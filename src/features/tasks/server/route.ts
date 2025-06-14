@@ -6,57 +6,11 @@ import { sessionMiddleware } from '@/lib/session-middleware';
 import { getMember } from '@/features/members/utils';
 import { ID, Query } from 'node-appwrite';
 import { z } from 'zod';
-import { TaskStatus } from '../types';
+import { Task, TaskStatus } from '../types';
 import { createAdminClient } from '@/lib/appwrite';
 import { Project } from '@/features/projects/types';
 
 const app = new Hono()
-  .post('/', sessionMiddleware, zValidator('json', createTaskSchema), async c => {
-    const databases = c.get('databases');
-    const user = c.get('user');
-
-    const { name, description, status, workspaceId, projectId, dueDate, assigneeId } = c.req.valid('json');
-
-    const member = await getMember({
-      databases,
-      workspaceId,
-      userId: user.$id,
-    });
-
-    if (!member) {
-      return c.json(
-        {
-          error: 'You are not authorized to create a task in this project',
-        },
-        401,
-      );
-    }
-
-    const highestPositionTask = await databases.listDocuments(DATABASE_ID, TASKS_ID, [
-      Query.equal('status', status),
-      Query.equal('workspaceId', workspaceId),
-      Query.orderAsc('position'),
-      Query.limit(1),
-    ]);
-
-    const newPosition =
-      highestPositionTask.documents.length > 0 ? highestPositionTask.documents[0].position + 1000 : 1000;
-
-    const task = await databases.createDocument(DATABASE_ID, TASKS_ID, ID.unique(), {
-      name,
-      status,
-      workspaceId,
-      projectId,
-      dueDate,
-      assigneeId,
-      description,
-      position: newPosition,
-    });
-
-    return c.json({
-      data: task,
-    });
-  })
   .get(
     '/',
     sessionMiddleware,
@@ -115,7 +69,7 @@ const app = new Hono()
         query.push(Query.equal('dueDate', dueDate));
       }
 
-      const tasks = await databases.listDocuments(DATABASE_ID, TASKS_ID, query);
+      const tasks = await databases.listDocuments<Task>(DATABASE_ID, TASKS_ID, query);
 
       const projectIds = tasks.documents.map(task => task.projectId);
       const assigneeIds = tasks.documents.map(task => task.assigneeId);
@@ -164,6 +118,92 @@ const app = new Hono()
         },
       });
     },
-  );
+  )
+  .post('/', sessionMiddleware, zValidator('json', createTaskSchema), async c => {
+    const databases = c.get('databases');
+    const user = c.get('user');
+
+    const { name, description, status, workspaceId, projectId, dueDate, assigneeId } = c.req.valid('json');
+
+    const member = await getMember({
+      databases,
+      workspaceId,
+      userId: user.$id,
+    });
+
+    if (!member) {
+      return c.json(
+        {
+          error: 'You are not authorized to create a task in this project',
+        },
+        401,
+      );
+    }
+
+    const highestPositionTask = await databases.listDocuments(DATABASE_ID, TASKS_ID, [
+      Query.equal('status', status),
+      Query.equal('workspaceId', workspaceId),
+      Query.orderAsc('position'),
+      Query.limit(1),
+    ]);
+
+    const newPosition =
+      highestPositionTask.documents.length > 0 ? highestPositionTask.documents[0].position + 1000 : 1000;
+
+    const task = await databases.createDocument(DATABASE_ID, TASKS_ID, ID.unique(), {
+      name,
+      status,
+      workspaceId,
+      projectId,
+      dueDate,
+      assigneeId,
+      description,
+      position: newPosition,
+    });
+
+    return c.json({
+      data: task,
+    });
+  })
+  .delete('/:taskId', sessionMiddleware, async c => {
+    const databases = c.get('databases');
+    const user = c.get('user');
+
+    const { taskId } = c.req.param();
+
+    const task = await databases.getDocument<Task>(DATABASE_ID, TASKS_ID, taskId);
+
+    if (!task) {
+      return c.json(
+        {
+          error: 'Task not found',
+        },
+        404,
+      );
+    }
+
+    const member = await getMember({
+      databases,
+      workspaceId: task.workspaceId,
+      userId: user.$id,
+    });
+
+    if (!member) {
+      return c.json(
+        {
+          error: 'You are not authorized to delete this task',
+        },
+        401,
+      );
+    }
+
+    await databases.deleteDocument(DATABASE_ID, TASKS_ID, taskId);
+
+    return c.json({
+      data: {
+        $id: taskId,
+      },
+    });
+  });
 
 export default app;

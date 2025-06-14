@@ -17,3 +17,7 @@ export function genereateInviteCode({ length = 6 }: { length?: number }) {
 
   return code;
 }
+
+export function snakeCaseToTitleCase(str: string) {
+  return str.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+}

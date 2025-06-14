@@ -10,6 +10,7 @@ async function ProjectSettingsPage({
     projectId: string;
   };
 }) {
+  const { projectId } = await params;
   const user = getCurrent();
 
   if (!user) {
@@ -17,7 +18,7 @@ async function ProjectSettingsPage({
   }
 
   const initialValues = await getProject({
-    projectId: params.projectId,
+    projectId,
   });
 
   if (!initialValues) {

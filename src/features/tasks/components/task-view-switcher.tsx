@@ -11,6 +11,8 @@ import { Loader2Icon } from 'lucide-react';
 import { useQueryState } from 'nuqs';
 import { DataFilters } from './data-filters';
 import { useTaskFilters } from '../hooks/use-task-filters';
+import { DataTable } from './data-table';
+import { columns } from './columns';
 
 export function TaskViewSwitcher() {
   const [{ projectId, status, assigneeId, search, dueDate }] = useTaskFilters();
@@ -58,9 +60,7 @@ export function TaskViewSwitcher() {
         ) : (
           <>
             <TabsContent value="table" className="mt-0">
-              {tasks?.documents.map(task => (
-                <div key={task.$id}>{task.project?.name}</div>
-              ))}
+              <DataTable columns={columns} data={tasks?.documents ?? []} />
             </TabsContent>
             <TabsContent value="kanban" className="mt-0">
               kanban

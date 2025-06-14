@@ -26,7 +26,7 @@ export function DatePicker({ value, onChange, className, placeholder = 'Select d
           variant="outline"
           id="date"
           className={cn(
-            'w-full justify-start text-left font-normal px-3',
+            'w-full justify-start text-left font-normal px-3 text-muted-foreground',
             !value && 'text-muted-foreground',
             className,
           )}

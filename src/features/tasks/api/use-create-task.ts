@@ -22,12 +22,7 @@ export const useCreateTask = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [
-          'tasks',
-          {
-            exact: false,
-          },
-        ],
+        queryKey: ['tasks'],
       });
       toast.success('Task created successfully');
     },
