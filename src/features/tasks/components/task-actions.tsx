@@ -6,12 +6,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Button } from '@/components/ui/button';
 import { ExternalLinkIcon, PencilIcon, TrashIcon } from 'lucide-react';
 import { useDeleteTask } from '../api/use-delete-task';
 import { useConfirm } from '@/hooks/use-confirm';
 import { useRouter } from 'next/navigation';
 import { useWorkspaceId } from '@/features/workspaces/hooks/use-workspace-id';
+import { useEditTaskModal } from '../hooks/use-edit-task-modal';
 
 interface TaskActionsProps {
   taskId: string;
@@ -23,6 +23,8 @@ export function TaskActions({ taskId, projectId, children }: TaskActionsProps) {
   const router = useRouter();
   const workspaceId = useWorkspaceId();
   const { mutate, isPending } = useDeleteTask();
+
+  const { open } = useEditTaskModal();
 
   const [ConfirmDeleteTaskDialog, confirmDeleteTask] = useConfirm({
     title: 'Delete task',
@@ -64,7 +66,7 @@ export function TaskActions({ taskId, projectId, children }: TaskActionsProps) {
             <ExternalLinkIcon className="mr-2 size-4 stroke-2" />
             Open Project
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => {}} disabled={false} className="font-medium p-[10px]">
+          <DropdownMenuItem onClick={() => open(taskId)} disabled={false} className="font-medium p-[10px]">
             <PencilIcon className="mr-2 size-4 stroke-2" />
             Edit task
           </DropdownMenuItem>

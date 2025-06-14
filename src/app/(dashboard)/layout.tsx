@@ -5,6 +5,7 @@ import { getCurrent } from '@/features/auth/queries';
 import { redirect } from 'next/navigation';
 import { CreateProjectModal } from '@/features/projects/components/create-project-modal';
 import { CreateTaskModal } from '@/features/tasks/components/create-task-modal';
+import { EditTaskModal } from '@/features/tasks/components/edit-task-modal';
 
 async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const user = await getCurrent();
@@ -18,6 +19,7 @@ async function DashboardLayout({ children }: { children: React.ReactNode }) {
       <CreateWorkspaceModal />
       <CreateProjectModal />
       <CreateTaskModal />
+      <EditTaskModal />
       <div className="flex w-full h-full">
         <div className="fixed left-0 top-0 hidden lg:block lg:w-[264px] h-full overflow-y-auto">
           <Sidebar />

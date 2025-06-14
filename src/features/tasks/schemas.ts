@@ -11,3 +11,5 @@ export const createTaskSchema = z.object({
   assigneeId: z.string().trim().min(1, { message: 'Assignee ID is required' }),
   description: z.string().trim().optional(),
 });
+
+export const updateTaskSchema = createTaskSchema.omit({ workspaceId: true });

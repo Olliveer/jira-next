@@ -204,6 +204,104 @@ const app = new Hono()
         $id: taskId,
       },
     });
+  })
+  .patch('/:taskId', sessionMiddleware, zValidator('json', createTaskSchema.partial()), async c => {
+    const databases = c.get('databases');
+    const user = c.get('user');
+
+    const { name, description, status, projectId, dueDate, assigneeId } = c.req.valid('json');
+
+    const { taskId } = c.req.param();
+
+    const taskToUpdate = await databases.getDocument<Task>(DATABASE_ID, TASKS_ID, taskId);
+
+    if (!taskToUpdate) {
+      return c.json(
+        {
+          error: 'Task not found',
+        },
+        404,
+      );
+    }
+
+    const member = await getMember({
+      databases,
+      workspaceId: taskToUpdate.workspaceId,
+      userId: user.$id,
+    });
+
+    if (!member) {
+      return c.json(
+        {
+          error: 'You are not authorized to create a task in this project',
+        },
+        401,
+      );
+    }
+
+    const task = await databases.updateDocument(DATABASE_ID, TASKS_ID, taskId, {
+      name,
+      status,
+      projectId,
+      dueDate,
+      assigneeId,
+      description,
+    });
+
+    return c.json({
+      data: task,
+    });
+  })
+  .get('/:taskId', sessionMiddleware, async c => {
+    const user = c.get('user');
+    const databases = c.get('databases');
+    const { users } = await createAdminClient();
+
+    const { taskId } = c.req.param();
+
+    const task = await databases.getDocument<Task>(DATABASE_ID, TASKS_ID, taskId);
+
+    if (!task) {
+      return c.json(
+        {
+          error: 'Task not found',
+        },
+        404,
+      );
+    }
+
+    const member = await getMember({
+      databases,
+      workspaceId: task.workspaceId,
+      userId: user.$id,
+    });
+
+    if (!member) {
+      return c.json(
+        {
+          error: 'You are not authorized to view this task',
+        },
+        401,
+      );
+    }
+
+    const project = await databases.getDocument<Project>(DATABASE_ID, PROJECTS_ID, task.projectId);
+
+    const assigneeUser = await users.get(member.userId);
+
+    const assignee = {
+      ...member,
+      name: assigneeUser.name,
+      email: assigneeUser.email,
+    };
+
+    return c.json({
+      data: {
+        ...task,
+        project,
+        assignee,
+      },
+    });
   });
 
 export default app;
