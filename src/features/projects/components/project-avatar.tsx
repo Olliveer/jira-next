@@ -14,16 +14,16 @@ interface WorkspaceAvatarProps {
 export function ProjectAvatar({ name, image, className, fallbackClassName }: WorkspaceAvatarProps) {
   if (image) {
     return (
-      <div className={cn('size-5 relative rounded-md overflow-hidden', className)}>
+      <div className={cn('size-5 relative rounded-full overflow-hidden', className)}>
         <Image src={image} alt={name} fill className="object-cover" />
       </div>
     );
   }
 
   return (
-    <Avatar className={cn('size-5 rounded-md', fallbackClassName)}>
+    <Avatar className={cn('size-5 rounded-full', fallbackClassName)}>
       <AvatarFallback
-        className={cn('text-white bg-blue-600 rounded-md font-semibold text-sm uppercase', fallbackClassName)}
+        className={cn('text-white bg-blue-600 rounded-full font-semibold text-sm uppercase', fallbackClassName)}
       >
         {name.charAt(0).toUpperCase()}
       </AvatarFallback>
