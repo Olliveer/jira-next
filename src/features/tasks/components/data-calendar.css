@@ -1,0 +1,200 @@
+/*
+ * A modern and beautiful theme for React Big Calendar.
+ * Inspired by modern calendar UIs like Google Calendar and Notion Calendar.
+ */
+
+:root {
+  --rbc-primary-color: #3174ad; /* A nice blue */
+  --rbc-secondary-color: #f7f7f7; /* Light gray for backgrounds */
+  --rbc-text-color: #333;
+  --rbc-secondary-text-color: #555;
+  --rbc-border-color: #ddd;
+  --rbc-hover-color: #e6e6e6;
+  --rbc-today-bg-color: #eaf6ff;
+  --rbc-event-bg-color: #3174ad;
+  --rbc-event-text-color: #fff;
+  --rbc-event-border-radius: 5px;
+  --rbc-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+.rbc-calendar {
+  font-family: var(--rbc-font-family);
+  color: var(--rbc-text-color);
+  border: 1px solid var(--rbc-border-color);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Toolbar Styles */
+.rbc-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #fff;
+  border-bottom: 1px solid var(--rbc-border-color);
+}
+
+.rbc-toolbar .rbc-toolbar-label {
+  font-size: 1.5em;
+  font-weight: 600;
+  color: var(--rbc-primary-color);
+}
+
+.rbc-toolbar .rbc-btn-group button {
+  color: var(--rbc-secondary-text-color);
+  border: 1px solid var(--rbc-border-color);
+  background-color: #fff;
+  padding: 8px 16px;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.rbc-toolbar .rbc-btn-group button:hover,
+.rbc-toolbar .rbc-btn-group button:focus {
+  background-color: var(--rbc-hover-color);
+  outline: none;
+}
+
+.rbc-toolbar .rbc-btn-group button.rbc-active {
+  background-color: var(--rbc-primary-color);
+  color: #fff;
+  border-color: var(--rbc-primary-color);
+  box-shadow: none;
+}
+
+/* Header Styles */
+.rbc-header {
+  padding: 10px 5px;
+  text-align: center;
+  font-weight: 600;
+  color: var(--rbc-secondary-text-color);
+  border-bottom: 1px solid var(--rbc-border-color);
+  background-color: var(--rbc-secondary-color);
+}
+
+/* Month View */
+.rbc-month-view {
+  border: none;
+}
+
+.rbc-month-row {
+  border: none;
+  min-height: 180px;
+}
+
+.rbc-day-bg {
+  border-left: 1px solid var(--rbc-border-color);
+}
+
+.rbc-day-bg:first-child {
+  border-left: none;
+}
+
+.rbc-off-range-bg {
+  background-color: #f9f9f9;
+}
+
+.rbc-date-cell {
+  padding: 5px;
+  text-align: right;
+}
+
+.rbc-now {
+  background-color: var(--rbc-today-bg-color);
+}
+
+.rbc-now .rbc-date-cell {
+  font-weight: bold;
+}
+
+.rbc-current-time-indicator {
+  background-color: var(--rbc-primary-color);
+  height: 2px;
+}
+
+/* Event Styles */
+.rbc-event {
+  background-color: var(--rbc-event-bg-color);
+  color: var(--rbc-event-text-color);
+  border: none;
+  border-radius: var(--rbc-event-border-radius);
+  padding: 5px;
+  font-size: 0.85em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.rbc-event:hover {
+  background-color: #255a83; /* Darker shade of primary color */
+}
+
+.rbc-event.rbc-selected {
+  background-color: #1a4361; /* Even darker shade */
+}
+
+.rbc-event-label {
+  font-weight: bold;
+}
+
+.rbc-event-content {
+  white-space: normal;
+}
+
+/* Agenda View */
+.rbc-agenda-view table {
+  border: none;
+}
+
+.rbc-agenda-view .rbc-agenda-date-cell,
+.rbc-agenda-view .rbc-agenda-time-cell {
+  padding: 10px 15px;
+  font-weight: bold;
+  color: var(--rbc-primary-color);
+}
+
+.rbc-agenda-view .rbc-agenda-event-cell {
+  padding: 10px 15px;
+}
+
+/* Time Grid (Week/Day views) */
+.rbc-time-view {
+  border: none;
+}
+
+.rbc-time-header-content {
+  border-left: 1px solid var(--rbc-border-color);
+}
+.rbc-time-header-content > .rbc-row:first-child {
+  border-bottom: 1px solid var(--rbc-border-color);
+}
+
+.rbc-time-slot {
+  border-top: 1px solid var(--rbc-border-color);
+}
+
+.rbc-time-gutter {
+  background-color: var(--rbc-secondary-color);
+}
+
+.rbc-label {
+  padding: 0 10px;
+  font-size: 0.8em;
+  color: var(--rbc-secondary-text-color);
+}
+
+.rbc-show-more {
+  background-color: transparent;
+  border: none;
+  color: var(--rbc-primary-color);
+  font-weight: bold;
+  cursor: pointer;
+  padding: 5px;
+  text-align: left;
+}
+
+.rbc-show-more:hover {
+  text-decoration: underline;
+}

@@ -1,22 +1,23 @@
 'use client';
 
+import { useCallback } from 'react';
+import { PlusIcon, Loader2Icon } from 'lucide-react';
+import { useQueryState } from 'nuqs';
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
-import { PlusIcon } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { useCreateTaskModal } from '../hooks/use-create-task-modal';
 import { useGetTasks } from '../api/use-get-tasks';
 import { useWorkspaceId } from '@/features/workspaces/hooks/use-workspace-id';
-import { Loader2Icon } from 'lucide-react';
-import { useQueryState } from 'nuqs';
 import { DataFilters } from './data-filters';
 import { useTaskFilters } from '../hooks/use-task-filters';
 import { DataTable } from './data-table';
 import { columns } from './columns';
 import { DataKanban } from './data-kanban';
-import { useCallback } from 'react';
 import { TaskStatus } from '../types';
 import { useBulkUpdateTasks } from '../api/use-bulk-update-tasks';
+import { DataCalendar } from './data-calendar';
 
 export function TaskViewSwitcher() {
   const [{ projectId, status, assigneeId, search, dueDate }] = useTaskFilters();
@@ -82,8 +83,8 @@ export function TaskViewSwitcher() {
             <TabsContent value="kanban" className="mt-0">
               <DataKanban data={tasks?.documents ?? []} onChange={handleKanbanChange} />
             </TabsContent>
-            <TabsContent value="calendar" className="mt-0">
-              calendar
+            <TabsContent value="calendar" className="mt-0 h-full pb-4">
+              <DataCalendar data={tasks?.documents ?? []} />
             </TabsContent>
           </>
         )}
