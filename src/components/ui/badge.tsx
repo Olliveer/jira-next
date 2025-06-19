@@ -3,6 +3,7 @@ import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 import { cn } from '@/lib/utils';
+import { TaskStatus } from '@/features/tasks/types';
 
 const badgeVariants = cva(
   'inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden',
@@ -19,6 +20,16 @@ const badgeVariants = cva(
         warning:
           'border-transparent bg-yellow-500 text-white [a&]:hover:bg-yellow-500/90 focus-visible:ring-yellow-500/20 dark:focus-visible:ring-yellow-500/40 dark:bg-yellow-500/60',
         info: 'border-transparent bg-blue-500 text-white [a&]:hover:bg-blue-500/90 focus-visible:ring-blue-500/20 dark:focus-visible:ring-blue-500/40 dark:bg-blue-500/60',
+        [TaskStatus.BACKLOG]:
+          'border-transparent bg-gray-500 text-white [a&]:hover:bg-gray-500/90 focus-visible:ring-gray-500/20 dark:focus-visible:ring-gray-500/40 dark:bg-gray-500/60',
+        [TaskStatus.TODO]:
+          'border-transparent bg-gray-500 text-white [a&]:hover:bg-gray-500/90 focus-visible:ring-gray-500/20 dark:focus-visible:ring-gray-500/40 dark:bg-gray-500/60',
+        [TaskStatus.IN_PROGRESS]:
+          'border-transparent bg-gray-500 text-white [a&]:hover:bg-gray-500/90 focus-visible:ring-gray-500/20 dark:focus-visible:ring-gray-500/40 dark:bg-gray-500/60',
+        [TaskStatus.IN_REVIEW]:
+          'border-transparent bg-gray-500 text-white [a&]:hover:bg-gray-500/90 focus-visible:ring-gray-500/20 dark:focus-visible:ring-gray-500/40 dark:bg-gray-500/60',
+        [TaskStatus.DONE]:
+          'border-transparent bg-gray-500 text-white [a&]:hover:bg-gray-500/90 focus-visible:ring-gray-500/20 dark:focus-visible:ring-gray-500/40 dark:bg-gray-500/60',
       },
       size: {
         default: 'text-xs',

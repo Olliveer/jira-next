@@ -40,7 +40,7 @@ export default async function ProjectPage({ params }: { params: { projectId: str
         </div>
       </div>
 
-      <TaskViewSwitcher />
+      <TaskViewSwitcher hideProjectFilter />
     </div>
   );
 }
