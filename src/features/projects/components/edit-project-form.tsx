@@ -77,8 +77,6 @@ export function EditProjectForm({ onCancel, initialValues }: EditProjectFormProp
       { param: { projectId: initialValues.$id } },
       {
         onSuccess: () => {
-          // TODO: verify maybe hard realod
-          router.refresh();
           router.push(`/workspaces/${initialValues.workspaceId}`);
         },
       },

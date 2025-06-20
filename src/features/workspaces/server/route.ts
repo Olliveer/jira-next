@@ -37,6 +37,63 @@ const app = new Hono()
       data: workspaces,
     });
   })
+  .get('/:workspaceId', sessionMiddleware, zValidator('param', z.object({ workspaceId: z.string() })), async c => {
+    const databases = c.get('databases');
+    const { workspaceId } = c.req.param();
+
+    const member = await getMember({
+      databases,
+      workspaceId,
+      userId: c.get('user').$id,
+    });
+
+    if (!member) {
+      return c.json(
+        {
+          error: 'You are not authorized to view this workspace',
+        },
+        401,
+      );
+    }
+
+    const workspace = await databases.getDocument<Workspace>(DATABASE_ID, WORKSPACES_ID, workspaceId);
+
+    if (!workspace) {
+      return c.json(
+        {
+          error: 'Workspace not found',
+        },
+        404,
+      );
+    }
+
+    return c.json({
+      data: workspace,
+    });
+  })
+  .get('/:workspaceId/info', sessionMiddleware, zValidator('param', z.object({ workspaceId: z.string() })), async c => {
+    const databases = c.get('databases');
+    const { workspaceId } = c.req.param();
+
+    const workspace = await databases.getDocument<Workspace>(DATABASE_ID, WORKSPACES_ID, workspaceId);
+
+    if (!workspace) {
+      return c.json(
+        {
+          error: 'Workspace not found',
+        },
+        404,
+      );
+    }
+
+    return c.json({
+      data: {
+        $id: workspace.$id,
+        name: workspace.name,
+        imageUrl: workspace.imageUrl,
+      },
+    });
+  })
   .post('/', zValidator('form', createWorkspaceSchema), sessionMiddleware, async c => {
     const databases = c.get('databases');
     const storage = c.get('storage');

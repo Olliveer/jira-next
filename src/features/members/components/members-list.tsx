@@ -19,11 +19,10 @@ import { useDeleteMember } from '@/features/members/api/use-delete-member';
 import { useUpdateMember } from '@/features/members/api/use-update-member';
 import { MemberRole } from '../types';
 import { useConfirm } from '@/hooks/use-confirm';
-import { useRouter } from 'next/navigation';
 
 export function MembersList() {
   const workspaceId = useWorkspaceId();
-  const router = useRouter();
+
   const { data, isPending } = useGetMembers({ workspaceId });
   const {
     mutate: deleteMember,
@@ -43,15 +42,7 @@ export function MembersList() {
     if (!ok) {
       return;
     }
-    deleteMember(
-      { param: { memberId } },
-      {
-        onSuccess: () => {
-          // TODO: maybe hard reload
-          router.refresh();
-        },
-      },
-    );
+    deleteMember({ param: { memberId } });
   };
 
   const handleUpdateMember = (memberId: string, role: MemberRole) => {

@@ -87,7 +87,7 @@ export function EditWorkspaceForm({ onCancel, initialValues }: EditWorkspaceForm
       {
         onSuccess: () => {
           // TODO: verify maybe hard realod
-          router.refresh();
+
           router.push('/');
         },
       },
