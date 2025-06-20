@@ -98,8 +98,8 @@ export function SignUpCard() {
               )}
             />
 
-            <Button disabled={isPending} onClick={signUpWithGithub} variant={'secondary'} className="w-full">
-              <FaGithub className="mr-2 size-5" /> Sign Up with GitHub
+            <Button disabled={isPending} className="w-full">
+              Sign Up
             </Button>
           </form>
         </Form>
@@ -111,7 +111,7 @@ export function SignUpCard() {
         {/* <Button disabled={isPending} variant={'secondary'} className="w-full">
           <FcGoogle className="mr-2 size-5" /> Sign Up with Google
         </Button> */}
-        <Button disabled={isPending} variant={'secondary'} className="w-full">
+        <Button disabled={isPending} onClick={signUpWithGithub} variant={'secondary'} className="w-full">
           <FaGithub className="mr-2 size-5" /> Sign Up with GitHub
         </Button>
       </CardContent>
