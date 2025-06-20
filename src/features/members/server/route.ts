@@ -6,7 +6,7 @@ import { DATABASE_ID, MEMBERS_ID } from '@/config';
 import { Query } from 'node-appwrite';
 import { createAdminClient } from '@/lib/appwrite';
 import { getMember } from '@/features/members/utils';
-import { MemberRole } from '../types';
+import { Member, MemberRole } from '../types';
 
 const app = new Hono()
   .get('/', sessionMiddleware, zValidator('query', z.object({ workspaceId: z.string() })), async c => {
@@ -27,7 +27,9 @@ const app = new Hono()
       );
     }
 
-    const members = await databases.listDocuments(DATABASE_ID, MEMBERS_ID, [Query.equal('workspaceId', workspaceId)]);
+    const members = await databases.listDocuments<Member>(DATABASE_ID, MEMBERS_ID, [
+      Query.equal('workspaceId', workspaceId),
+    ]);
 
     const populatedMembers = await Promise.all(
       members.documents.map(async member => {
@@ -52,9 +54,9 @@ const app = new Hono()
     const { memberId } = c.req.param();
     const user = c.get('user');
 
-    const memberToDelete = await databases.getDocument(DATABASE_ID, MEMBERS_ID, memberId);
+    const memberToDelete = await databases.getDocument<Member>(DATABASE_ID, MEMBERS_ID, memberId);
 
-    const allMembers = await databases.listDocuments(DATABASE_ID, MEMBERS_ID, [
+    const allMembers = await databases.listDocuments<Member>(DATABASE_ID, MEMBERS_ID, [
       Query.equal('workspaceId', memberToDelete.workspaceId),
     ]);
 
@@ -101,9 +103,9 @@ const app = new Hono()
     const { role } = c.req.valid('json');
     const user = c.get('user');
 
-    const memberToUpdate = await databases.getDocument(DATABASE_ID, MEMBERS_ID, memberId);
+    const memberToUpdate = await databases.getDocument<Member>(DATABASE_ID, MEMBERS_ID, memberId);
 
-    const allMembers = await databases.listDocuments(DATABASE_ID, MEMBERS_ID, [
+    const allMembers = await databases.listDocuments<Member>(DATABASE_ID, MEMBERS_ID, [
       Query.equal('workspaceId', memberToUpdate.workspaceId),
     ]);
 
