@@ -29,7 +29,7 @@ export function DataFilters({ hideProjectFilter }: DataFiltersProps) {
     name: member.name,
   }));
 
-  const [{ projectId, status, assigneeId, search, dueDate }, setFilters] = useTaskFilters();
+  const [{ projectId, status, assigneeId, dueDate }, setFilters] = useTaskFilters();
 
   const handleStatusChange = (value: string) => {
     if (value === 'all') {
