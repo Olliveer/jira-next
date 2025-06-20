@@ -152,10 +152,10 @@ export const MembersList = ({ data, total }: { data: Member[]; total: number }) 
 
         <Separator className="my-4" />
 
-        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <ul className="grid grid-cols-1 lg:grid-cols-2  gap-4">
           {data.map(member => (
             <li key={member.$id}>
-              <Card className=" shadow-none overflow-hidden">
+              <Card className="shadow-none overflow-hidden">
                 <CardContent className="p-3 flex flex-col items-center gap-x-2">
                   <MemberAvatar name={member.name} className="size-8" fallbackClassName="text-lg size-8" />
                   <div className="flex flex-col items-center overflow-hidden">

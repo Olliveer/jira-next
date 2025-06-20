@@ -4,7 +4,6 @@ import { DottedSeparator } from '@/components/dotted-separator';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { FcGoogle } from 'react-icons/fc';
 import { FaGithub } from 'react-icons/fa';
 import React from 'react';
 import Link from 'next/link';
@@ -14,7 +13,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { registerSchema } from '../schemas';
 import { useRegister } from '../api/use-register';
-import { LoaderCircleIcon } from 'lucide-react';
+import { signUpWithGithub } from '@/lib/oauth';
 
 export function SignUpCard() {
   const { mutate, isPending } = useRegister();
@@ -99,9 +98,8 @@ export function SignUpCard() {
               )}
             />
 
-            <Button className="w-full" type="submit" disabled={isPending}>
-              {isPending && <LoaderCircleIcon className="-ms-1 animate-spin" size={16} aria-hidden="true" />}
-              Sign Up
+            <Button disabled={isPending} onClick={signUpWithGithub} variant={'secondary'} className="w-full">
+              <FaGithub className="mr-2 size-5" /> Sign Up with GitHub
             </Button>
           </form>
         </Form>
@@ -110,10 +108,10 @@ export function SignUpCard() {
         <DottedSeparator />
       </div>
       <CardContent className="p-7 flex flex-col gap-y-4 ">
-        <Button variant={'secondary'} className="w-full">
+        {/* <Button disabled={isPending} variant={'secondary'} className="w-full">
           <FcGoogle className="mr-2 size-5" /> Sign Up with Google
-        </Button>
-        <Button variant={'secondary'} className="w-full">
+        </Button> */}
+        <Button disabled={isPending} variant={'secondary'} className="w-full">
           <FaGithub className="mr-2 size-5" /> Sign Up with GitHub
         </Button>
       </CardContent>
