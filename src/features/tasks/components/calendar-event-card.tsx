@@ -29,14 +29,14 @@ export function CalendarEventCard({ id, title, project, assignee, status }: Cale
 
   const onClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
-    router.push(`/workspaces/${workspaceId}/projects/${project.$id}/tasks/${id}`);
+    router.push(`/workspaces/${workspaceId}/tasks/${id}`);
   };
 
   return (
     <div className="px-2">
       <div
         className={cn(
-          'p-1.5 text-xs bg-white text-primary border rounded-md border-l-4 flex flex-col gap-y-1.5 cursor-pointer hover:opacity-75 transition',
+          'p-1.5 text-xs bg-white dark:bg-neutral-800 text-primary border rounded-md border-l-4 flex flex-col gap-y-1.5 cursor-pointer hover:opacity-75 transition',
           statusColorMap[status],
         )}
         onClick={onClick}
@@ -51,14 +51,14 @@ export function CalendarEventCard({ id, title, project, assignee, status }: Cale
               <p>{assignee}</p>
             </TooltipContent>
           </Tooltip>
-          <div className="size-1 rounded-full bg-neutral-300"></div>
+          <div className="size-1 rounded-full bg-neutral-300 dark:bg-neutral-700"></div>
           <Tooltip>
             <TooltipTrigger>
               <ProjectAvatar
                 name={project.name}
                 image={project.imageUrl}
-                className="size-6"
-                fallbackClassName="text-xs size-6"
+                className="size-6 dark:text-neutral-100"
+                fallbackClassName="text-xs size-6 dark:text-neutral-100"
               />
             </TooltipTrigger>
             <TooltipContent>

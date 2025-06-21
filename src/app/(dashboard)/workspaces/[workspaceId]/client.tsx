@@ -54,7 +54,7 @@ export const TaskList = ({ data, total }: { data: Task[]; total: number }) => {
   const workspaceId = useWorkspaceId();
   return (
     <div className="flex flex-col gap-y-4 col-span-1">
-      <div className="bg-muted rounded-lg p-4">
+      <div className="bg-muted dark:bg-neutral-800 rounded-lg p-4">
         <div className="flex items-center justify-between">
           <p className="text-lg font-semibold">Tasks ({total})</p>
           <Button variant="outline" size="icon" onClick={() => openCreateTaskModal()}>
@@ -101,7 +101,7 @@ export const ProjectList = ({ data, total }: { data: Project[]; total: number })
   const workspaceId = useWorkspaceId();
   return (
     <div className="flex flex-col gap-y-4 col-span-1">
-      <div className="bg-white border rounded-lg p-4">
+      <div className="bg-white dark:bg-neutral-800 border rounded-lg p-4">
         <div className="flex items-center justify-between">
           <p className="text-lg font-semibold">Projects ({total})</p>
           <Button variant="secondary" size="icon" onClick={() => openCreateProjectModal()}>
@@ -140,7 +140,7 @@ export const MembersList = ({ data, total }: { data: Member[]; total: number }) 
   const workspaceId = useWorkspaceId();
   return (
     <div className="flex flex-col gap-y-4 col-span-1">
-      <div className="bg-white border rounded-lg p-4">
+      <div className="bg-white dark:bg-neutral-800 border rounded-lg p-4">
         <div className="flex items-center justify-between">
           <p className="text-lg font-semibold">Members ({total})</p>
           <Button variant="secondary" size="icon" asChild>

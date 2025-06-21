@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export default function StandaloneLayout({ children }: { children: React.ReactNode }) {
   return (
-    <main className="min-h-screen bg-neutral-100">
+    <main className="min-h-screen bg-neutral-100 dark:bg-neutral-900">
       <div className="mx-auto max-w-screen-2xl p-4">
         <nav className="flex justify-between items-center h-[73px]">
           <Link href="/">

@@ -2,6 +2,7 @@ import { Navbar } from '@/components/navbar';
 import { Sidebar } from '@/components/sidebar';
 import { CreateWorkspaceModal } from '@/features/workspaces/components/create-workspace-modal';
 import { getCurrent } from '@/features/auth/queries';
+import { getWorkspaces } from '@/features/workspaces/queries';
 import { redirect } from 'next/navigation';
 import { CreateProjectModal } from '@/features/projects/components/create-project-modal';
 import { CreateTaskModal } from '@/features/tasks/components/create-task-modal';
@@ -12,6 +13,12 @@ async function DashboardLayout({ children }: { children: React.ReactNode }) {
 
   if (!user) {
     return redirect('/sign-in');
+  }
+
+  const workspaces = await getWorkspaces();
+
+  if (workspaces.total === 0) {
+    return redirect('/workspaces/create');
   }
 
   return (

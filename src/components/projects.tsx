@@ -7,12 +7,10 @@ import { LoaderCircleIcon } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
-// import { useProjectId } from '@/features/projects/hooks/use-project-id';
 import { useCreateProjectModal } from '@/features/projects/hooks/use-create-project-modal';
 import { ProjectAvatar } from '@/features/projects/components/project-avatar';
 
 export function Projects() {
-  // const projectId = useProjectId();
   const { open } = useCreateProjectModal();
   const pathname = usePathname();
   const workspaceId = useWorkspaceId();
@@ -36,7 +34,7 @@ export function Projects() {
   return (
     <div className="flex flex-col gap-y-2">
       <div className="flex items-center justify-between">
-        <p className="text-xs uppercase text-neutral-500">Projects</p>
+        <p className="text-xs uppercase text-neutral-500 ">Projects</p>
         <RiAddCircleFill
           onClick={open}
           className="size-5 text-neutral-500 cursor-pointer hover:opacity-75 transition"
@@ -50,7 +48,8 @@ export function Projects() {
             <div
               className={cn(
                 'flex items-center gap-2.5 p-2.5 rounded-md font-medium hover:opacity-75 transition cursor-pointer text-neutral-500',
-                isActive && 'bg-white shadow-sm hover:opacity-100 text-primary',
+                isActive &&
+                  'bg-white shadow-sm hover:opacity-100 text-primary dark:bg-neutral-800 dark:text-neutral-100',
               )}
             >
               <ProjectAvatar name={project.name} image={project.imageUrl} />

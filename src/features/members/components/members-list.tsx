@@ -58,7 +58,7 @@ export function MembersList() {
   }
 
   return (
-    <Card className="w-full h-full border-none shadow-none">
+    <Card className="w-full h-full">
       <ConfirmDialog />
       <CardHeader className="p-7 flex flex-row items-center gap-x-4 space-y-0">
         <Button variant="outline" asChild>

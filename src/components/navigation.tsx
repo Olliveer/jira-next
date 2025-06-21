@@ -49,7 +49,8 @@ export function Navigation() {
             <div
               className={cn(
                 'flex items-center gap-2.5 p-2.5 rounded-md font-medium hover:text-primary transition text-neutral-500',
-                isActive && 'bg-white shadow-sm hover:opacity-100 text-primary',
+                isActive &&
+                  'bg-white shadow-sm hover:opacity-100 text-primary dark:bg-neutral-800 dark:text-neutral-100',
               )}
             >
               <Icon />

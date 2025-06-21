@@ -32,11 +32,11 @@ interface CalendarCustomToolbarProps {
 }
 
 const CalendarCustomToolbar = ({ date, onNavigate }: CalendarCustomToolbarProps) => (
-  <div className="flex mb-4 gap-x-2 items-center w-full lg:w-auto justify-center lg:justify-start m-2 ">
+  <div className="flex mb-4 gap-x-2 items-center dark:text-neutral-100 w-full lg:w-auto justify-center lg:justify-start m-2 ">
     <Button variant="outline" size="icon" onClick={() => onNavigate('PRE')}>
       <ChevronLeftIcon className="size-4" />
     </Button>
-    <div className="flex items-center border border-input rounded-md py-2 h-8 justify-center w-full lg:w-auto p-2">
+    <div className="flex items-center border border-input rounded-md py-2 h-8 justify-center w-full lg:w-auto p-2 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-100">
       <CalendarIcon className="size-4 mr-2" />
       <p className="text-sm">{format(date, 'MMMM yyyy')}</p>
     </div>
@@ -78,7 +78,7 @@ export function DataCalendar({ data }: DataCalendarProps) {
       defaultView="month"
       toolbar
       showAllEvents
-      className="h-full"
+      className="h-full dark:bg-neutral-800"
       max={new Date(new Date().setFullYear(new Date().getFullYear() + 1))}
       formats={{
         weekdayFormat: (date, culture, localizer) => localizer?.format(date, 'EEE', culture) ?? '',

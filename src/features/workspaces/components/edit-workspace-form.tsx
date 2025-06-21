@@ -114,7 +114,7 @@ export function EditWorkspaceForm({ onCancel, initialValues }: EditWorkspaceForm
     <div className="flex flex-col gap-y-4">
       <ConfirmDeleteDialog />
       <ConfirmResetInviteCodeDialog />
-      <Card className="w-full h-full border-none shadow-none gap-2">
+      <Card className="w-full h-full  gap-2">
         <CardHeader className="flex flex-row items-center gap-x-4 p-7 space-y-0">
           <Button
             variant="secondary"
@@ -231,7 +231,7 @@ export function EditWorkspaceForm({ onCancel, initialValues }: EditWorkspaceForm
         </CardContent>
       </Card>
 
-      <Card className="w-full h-full border-none shadow-none">
+      <Card className="w-full h-full">
         <CardContent className="p-7">
           <div className="flex flex-col">
             <h3 className="font-bold">Invite Members</h3>
@@ -262,7 +262,7 @@ export function EditWorkspaceForm({ onCancel, initialValues }: EditWorkspaceForm
         </CardContent>
       </Card>
 
-      <Card className="w-full h-full border-none shadow-none">
+      <Card className="w-full h-full">
         <CardContent className="p-7">
           <div className="flex flex-col">
             <h3 className="font-bold">Danger Zone</h3>
