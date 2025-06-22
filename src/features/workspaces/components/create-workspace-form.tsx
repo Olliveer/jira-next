@@ -78,7 +78,7 @@ export function CreateWorkspaceForm({ onCancel }: CreateWorkspaceFormProps) {
                 <FormItem>
                   <FormLabel>Workspace Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter workspace name" {...field} defaultValue={field.value} />
+                    <Input placeholder="Enter workspace name" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

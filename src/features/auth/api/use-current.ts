@@ -9,7 +9,8 @@ export const useCurrent = () =>
       const response = await client.api.auth.current.$get();
 
       if (!response.ok) {
-        throw new Error('Failed to fetch current user');
+        return null;
+        // throw new Error('Failed to fetch current user');
       }
 
       const { data } = await response.json();

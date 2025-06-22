@@ -35,7 +35,7 @@ export function DatePicker({ value, onChange, className, placeholder = 'Select d
           {value ? format(value, 'PPP') : placeholder}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-auto overflow-hidden p-0" align="start">
+      <PopoverContent  className="w-auto overflow-hidden p-0" align="start">
         <Calendar
           mode="single"
           selected={value}

@@ -24,7 +24,7 @@ export const useLogout = () => {
       toast.success('Logout successful');
 
       router.push('/sign-in');
-      queryClient.invalidateQueries();
+      // queryClient.invalidateQueries();
     },
     onError: () => {
       toast.error('Failed to logout');

@@ -23,6 +23,8 @@ export function UserButton() {
       </div>
     );
 
+  if (!data) return null;
+
   const avatarFallback = data?.name ? data.name.charAt(0).toUpperCase() : data?.email.charAt(0).toUpperCase() ?? 'U';
 
   return (
